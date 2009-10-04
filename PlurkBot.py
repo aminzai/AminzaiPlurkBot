@@ -77,14 +77,15 @@ class PlurkBot:
 
         if j == 0:
           self.newestTitle = title
-          print 'j=0 Title:',title
+          print 'The Newest Title:',title
 
       self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
 
     for x in range( 0 , len( self.WaitPost ) ):
-      print self.WaitPost.pop()
-      #self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = data )
-      time.sleep( random.randint(60,500) )
+      PostData = self.WaitPost.pop()
+      print 'Post:',PostData
+      self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData ) )
+      time.sleep( random.randint(60,200) )
 
           
 if __name__ == '__main__' :
