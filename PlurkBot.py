@@ -63,7 +63,7 @@ class PlurkBot:
     for i in range( 0 , len( rets ) ):
       source_Title = rets[i][0] 
       for j in range ( 0 , len( rets[i][1] ) ):
-        if j > 20 : #Control Max Data
+        if j > 10 : #Control Max Data
           break
         item = rets[i][1][j]
         title = item.find('title').text.strip().encode('utf-8')
@@ -85,7 +85,7 @@ class PlurkBot:
       PostData = self.WaitPost.pop()
       print 'Post:',PostData
       self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
-      time.sleep( random.randint(60,200) )
+      time.sleep( random.randint(60,324) )
 
           
 if __name__ == '__main__' :
