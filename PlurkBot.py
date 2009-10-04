@@ -6,6 +6,7 @@
 # Date      : Thu Oct  1 11:05:15 CST 2009
 import plurkapi
 import sys
+import os
 import RSS_Reader
 import time
 import random
@@ -41,6 +42,17 @@ class PlurkBot:
     # AccountInf's data type [ 'username' , 'password' ]
     AccountInf = AccountFile.readline().rstrip().split()
     return AccountInf 
+
+  def Backup_Wait_Post_To_File( self , data ):
+    file = open( 'WaitPostBak.db' , 'wb' )
+    pickle.dump( data , file )
+    file.close()
+
+  def Restore_Wait_Post_From_File( self ):
+    file = open( 'WaitPostBak.db' , 'rb' )
+    data = pickle.load( file )
+    file.close()
+    return data
   
   def BuildTinyURL( self , url ):
     tinyapiurl = "http://tinyurl.com/api-create.php?url="
@@ -53,13 +65,28 @@ class PlurkBot:
   def BeFrineds( self ):
     """Auto Add friend ,if have anybody want be friend"""
     alerts = self.Client.getAlerts()
-    if not alerts == 1 :
+    if not alerts > 0 :
       self.Client.befriend( alerts )
 
   def mainRun( self ):
     """Main Function"""
     rets = self.rss.Read_RSS_Source()
     self.WaitPost = []
+    #Reload File
+    if os.path.exists( 'WaitPostBak.db' ):
+      RestoreData = Restore_Wait_Post_From_File()
+      for y in len( RestoreData ):
+        try:
+          self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
+        except HTTPError:
+          while 1:
+            time.sleep( random.randint( 360 , 524 ) )
+            if self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData ) == True:
+              break
+
+
+
+    #Get all data
     for i in range( 0 , len( rets ) ):
       source_Title = rets[i][0] 
       for j in range ( 0 , len( rets[i][1] ) ):
@@ -82,10 +109,18 @@ class PlurkBot:
       self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
 
     for x in range( 0 , len( self.WaitPost ) ):
+      Backup_Wait_Post_To_File( self.WaitPost )
       PostData = self.WaitPost.pop()
       print 'Post:',PostData
-      self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
-      time.sleep( random.randint(60,324) )
+      try:
+        self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
+      except HTTPError:
+        while 1:
+          time.sleep( random.randint( 360 , 524 ) )
+          if self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData ) == True:
+            break
+      time.sleep( random.randint( 60 , 324 ) )
+
 
           
 if __name__ == '__main__' :
