@@ -74,7 +74,7 @@ class PlurkBot:
     self.WaitPost = []
     #Reload File
     if os.path.exists( 'WaitPostBak.db' ):
-      RestoreData = Restore_Wait_Post_From_File()
+      RestoreData = self.Restore_Wait_Post_From_File()
       for y in len( RestoreData ):
         try:
           self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
@@ -83,8 +83,6 @@ class PlurkBot:
             time.sleep( random.randint( 360 , 524 ) )
             if self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData ) == True:
               break
-
-
 
     #Get all data
     for i in range( 0 , len( rets ) ):
@@ -109,7 +107,7 @@ class PlurkBot:
       self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
 
     for x in range( 0 , len( self.WaitPost ) ):
-      Backup_Wait_Post_To_File( self.WaitPost )
+      self.Backup_Wait_Post_To_File( self.WaitPost )
       PostData = self.WaitPost.pop()
       print 'Post:',PostData
       try:
