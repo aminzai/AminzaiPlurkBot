@@ -102,7 +102,7 @@ class PlurkBot:
             RestoreData = tmp
             PostData = RestoreData.pop()
             self.Backup_Wait_Post_To_File( RestoreData )
-            DelayTime = random.randint( 300 , 600 )
+            DelayTime = random.randint( 30 , 60 )
             print 'Delay Time:', DelayTime
             time.sleep( DelayTime )
           else:
