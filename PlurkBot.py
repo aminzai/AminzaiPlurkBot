@@ -88,6 +88,7 @@ class PlurkBot:
       RestoreData = self.Restore_Wait_Post_From_File()
       print "Restore Data & Post to Plurk"
       for y in range( 0 , len( RestoreData ) ):
+        random.shuffle( RestoreData )
         self.Backup_Wait_Post_To_File( RestoreData )
         PostData = RestoreData.pop()
         DelayTime = random.randint( 600 , 660 )
@@ -105,7 +106,7 @@ class PlurkBot:
             RestoreData = tmp
             PostData = RestoreData.pop()
             self.Backup_Wait_Post_To_File( RestoreData )
-            if ( y / 4 ) == 0:
+            if ( y % 4 ) == 0:
               DelayTime = random.randint( 600 , 660 )
               print 'Delay Time(Jump 10~11min):', DelayTime
               time.sleep( DelayTime )
@@ -134,7 +135,9 @@ class PlurkBot:
 
       self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
 
+    random.shuffle( self.WaitPost )
     for x in range( 0 , len( self.WaitPost ) ):
+      random.shuffle( self.WaitPost )
       self.Backup_Wait_Post_To_File( self.WaitPost )
       PostData = self.WaitPost.pop()
       print 'Post:',PostData
@@ -149,7 +152,7 @@ class PlurkBot:
         else:
           break
 
-      if ( x / 4 ) == 0 :
+      if ( x % 4 ) == 0 :
         DelayTime = random.randint( 600 , 660 )
         print 'Delay Time(Jump 10~11min):', DelayTime
         time.sleep( DelayTime )
