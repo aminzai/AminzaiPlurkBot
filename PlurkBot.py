@@ -84,7 +84,7 @@ class PlurkBot:
     for x in range( 0 , len( self.WaitPost ) ):
       PostData = self.WaitPost.pop()
       print 'Post:',PostData
-      self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData ) )
+      self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
       time.sleep( random.randint(60,200) )
 
           
