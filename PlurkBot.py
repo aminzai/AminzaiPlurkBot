@@ -96,7 +96,7 @@ class PlurkBot:
             self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
           except:
             print "Plurk raise error!!,We will retry....."
-            DelayTime = random.randint( 60 , 360 )
+            DelayTime = random.randint( 30 , 60 )
             print 'Delay Time:', DelayTime
             time.sleep( DelayTime )
           else:
@@ -106,7 +106,7 @@ class PlurkBot:
     for i in range( 0 , len( rets ) ):
       source_Title = rets[i][0] 
       for j in range ( 0 , len( rets[i][1] ) ):
-        if j > 10 : #Control Max Data
+        if j > 3 : #Control Max Data
           break
         item = rets[i][1][j]
         title = item.find('title').text.strip().encode('utf-8')
@@ -133,12 +133,12 @@ class PlurkBot:
           self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
         except:
           print "Plurk raise error!!,We will retry....."
-          DelayTime = random.randint( 60 , 360 )
+          DelayTime = random.randint( 30 , 60 )
           print 'Delay Time:', DelayTime
           time.sleep( DelayTime )
         else:
           break
-      DelayTime = random.randint( 60 , 360 )
+      DelayTime = random.randint( 30 , 60 )
       print 'Delay Time:', DelayTime
       time.sleep( DelayTime )
           
