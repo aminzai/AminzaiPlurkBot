@@ -54,7 +54,7 @@ class PlurkBot:
     data = pickle.load( file )
     file.close()
     return data
-  
+
   def BuildTinyURL( self , url ):
     tinyapiurl = "http://tinyurl.com/api-create.php?url="
     try:
@@ -99,10 +99,6 @@ class PlurkBot:
             DelayTime = random.randint( 30 , 60 )
             print 'Delay Time:', DelayTime
             time.sleep( DelayTime )
-            RestoreData.append( PostData )
-            self.Backup_Wait_Post_To_File( RestoreData.reverse() )
-            RestoreData = self.Restore_Wait_Post_From_File()
-            PostData = RestoreData.pop()
           else:
             break
 
