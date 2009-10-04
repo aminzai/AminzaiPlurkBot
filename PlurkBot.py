@@ -76,14 +76,12 @@ class PlurkBot:
     #Reload File
     if not os.path.exists( 'WaitPostBak.db' ):
       RestoreData = self.Restore_Wait_Post_From_File()
+      print "Restore Data & Post to Plurk"
       for y in len( RestoreData ):
-        try:
-          self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
-        except HTTPError:
-          while 1:
-            time.sleep( random.randint( 360 , 524 ) )
-            if self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData ) == True:
-              break
+        while 1:
+          if self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData ) == True:
+            break
+          time.sleep( random.randint( 360 , 524 ) )
 
     #Get all data
     for i in range( 0 , len( rets ) ):
