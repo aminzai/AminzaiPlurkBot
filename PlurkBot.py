@@ -78,6 +78,8 @@ class PlurkBot:
       RestoreData = self.Restore_Wait_Post_From_File()
       print "Restore Data & Post to Plurk"
       for y in range( 0 , len( RestoreData ) ):
+        self.Backup_Wait_Post_To_File( RestoreData )
+        PostData = RestoreData.pop()
         while 1:
           if self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData ) == True:
             break
