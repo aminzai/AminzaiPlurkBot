@@ -90,8 +90,8 @@ class PlurkBot:
       for y in range( 0 , len( RestoreData ) ):
         self.Backup_Wait_Post_To_File( RestoreData )
         PostData = RestoreData.pop()
-        print 'Restore & Post:',PostData
         while 1:
+          print 'Restore & Post:',PostData
           try:
             self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
           except:
@@ -99,6 +99,11 @@ class PlurkBot:
             DelayTime = random.randint( 30 , 60 )
             print 'Delay Time:', DelayTime
             time.sleep( DelayTime )
+            self.Backup_Wait_Post_To_File( RestoreData.append( PostData ).reverse() )
+            RestoreData = self.Restore_Wait_Post_From_File()
+            PostData = RestoreData.pop()
+        print 'Restore & Post:',PostData
+      print "Restore Data & Post to Plurk"
           else:
             break
 
