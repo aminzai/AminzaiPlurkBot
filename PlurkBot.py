@@ -74,7 +74,7 @@ class PlurkBot:
     rets = self.rss.Read_RSS_Source()
     self.WaitPost = []
     #Reload File
-    if os.path.exists( 'WaitPostBak.db' ):
+    if not os.path.exists( 'WaitPostBak.db' ):
       RestoreData = self.Restore_Wait_Post_From_File()
       for y in len( RestoreData ):
         try:
