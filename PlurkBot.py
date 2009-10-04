@@ -70,14 +70,14 @@ class PlurkBot:
         link = self.BuildTinyURL( item.find('link').text.strip().encode('utf-8') )
         data = '[' + source_Title + '] ' + link + ' (' + title + ') '
 
+        if j == 0:
+          self.newestTitle = title
+          print 'The Newest Title:',title
+
         if self.rss.Check_Last_RSS_Data( [ source_Title , title ] ) :
           print 'Found:',data
           break
         self.WaitPost.append( data )
-
-        if j == 0:
-          self.newestTitle = title
-          print 'The Newest Title:',title
 
       self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
 
