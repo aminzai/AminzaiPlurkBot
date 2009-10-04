@@ -9,7 +9,10 @@ import sys
 import RSS_Reader
 import time
 import random
-import lxml.html as lhtml
+try:
+  import lxml.html as lhtml
+except:
+  print "Warring: Can't import lxml.html, That will can't use tinyURL"
 from twisted.internet.task import LoopingCall
 from twisted.internet import reactor
 
@@ -60,7 +63,7 @@ class PlurkBot:
     for i in range( 0 , len( rets ) ):
       source_Title = rets[i][0] 
       for j in range ( 0 , len( rets[i][1] ) ):
-        if j > 20 : #Control Max Data, Max:20
+        if j > 20 : #Control Max Data
           break
         item = rets[i][1][j]
         title = item.find('title').text.strip().encode('utf-8')
