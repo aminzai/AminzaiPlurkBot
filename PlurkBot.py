@@ -80,10 +80,15 @@ class PlurkBot:
       for y in range( 0 , len( RestoreData ) ):
         self.Backup_Wait_Post_To_File( RestoreData )
         PostData = RestoreData.pop()
+        print 'Restore & Post:',PostData
         while 1:
-          if self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData ) == True:
+          try:
+            self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
+          except:
+            print "Plurk raise error!!,We will retry....."
+            time.sleep( random.randint( 30 , 360 ) )
+          else:
             break
-          time.sleep( random.randint( 360 , 524 ) )
 
     #Get all data
     for i in range( 0 , len( rets ) ):
@@ -112,9 +117,13 @@ class PlurkBot:
       PostData = self.WaitPost.pop()
       print 'Post:',PostData
       while 1:
-        if self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData ) == True:
+        try:
+          self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
+        except:
+          print "Plurk raise error!!,We will retry....."
+          time.sleep( random.randint( 30 , 360 ) )
+        else:
           break
-        time.sleep( random.randint( 360 , 524 ) )
       time.sleep( random.randint( 60 , 324 ) )
 
 
