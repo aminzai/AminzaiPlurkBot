@@ -111,13 +111,10 @@ class PlurkBot:
       self.Backup_Wait_Post_To_File( self.WaitPost )
       PostData = self.WaitPost.pop()
       print 'Post:',PostData
-      try:
-        self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
-      except HTTPError:
-        while 1:
-          time.sleep( random.randint( 360 , 524 ) )
-          if self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData ) == True:
-            break
+      while 1:
+        if self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData ) == True:
+          break
+        time.sleep( random.randint( 360 , 524 ) )
       time.sleep( random.randint( 60 , 324 ) )
 
 
