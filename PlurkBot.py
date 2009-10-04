@@ -96,6 +96,12 @@ class PlurkBot:
             self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
           except:
             print "Plurk raise error!!,We will retry....."
+            tmp = []
+            tmp.append( PostData )
+            tmp.extend( RestoreData )
+            RestoreData = tmp
+            PostData = RestoreData.pop()
+            self.Backup_Wait_Post_To_File( RestoreData )
             DelayTime = random.randint( 300 , 600 )
             print 'Delay Time:', DelayTime
             time.sleep( DelayTime )
