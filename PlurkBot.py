@@ -71,8 +71,8 @@ class PlurkBot:
   
   def ResizePost( self , data ):
     print 'Length:', len( data )
-    if len( data ) > 130 :
-      resizedata = data[0:130] + '..)'
+    if len( data ) > 131 :
+      resizedata = data[0:131] + '..)'
       print 'Resize Post: ' + resizedata
       print 'Resized Length: ' + len( resizedata )
       return resizedata 
