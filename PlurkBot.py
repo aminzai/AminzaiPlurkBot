@@ -70,8 +70,11 @@ class PlurkBot:
       self.Client.befriend( alerts )
   
   def ResizePost( self , data ):
-    if len( data ) > 135 :
-      return data[0:135] + '..)'
+    print 'Length:', len( data )
+    if len( data ) > 133 :
+      resizedata = data[0:133] + '..)'
+      print 'Resize Post:' + resizedata
+      return resizedata 
     else:
       return data
 
