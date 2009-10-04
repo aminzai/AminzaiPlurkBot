@@ -95,7 +95,9 @@ class PlurkBot:
             self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
           except:
             print "Plurk raise error!!,We will retry....."
-            time.sleep( random.randint( 30 , 360 ) )
+            DelayTime = random.randint( 30 , 60 )
+            print 'Delay Time:', DelayTime
+            time.sleep( DelayTime )
           else:
             break
 
@@ -130,10 +132,14 @@ class PlurkBot:
           self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
         except:
           print "Plurk raise error!!,We will retry....."
-          time.sleep( random.randint( 30 , 360 ) )
+          DelayTime = random.randint( 30 , 60 )
+          print 'Delay Time:', DelayTime
+          time.sleep( DelayTime )
         else:
           break
-      time.sleep( random.randint( 60 , 324 ) )
+      DelayTime = random.randint( 30 , 60 )
+      print 'Delay Time:', DelayTime
+      time.sleep( DelayTime )
           
 if __name__ == '__main__' :
   bot = PlurkBot()
