@@ -68,6 +68,12 @@ class PlurkBot:
     alerts = self.Client.getAlerts()
     if not alerts > 0 :
       self.Client.befriend( alerts )
+  
+  def ResizePost( self , data ):
+    if len( data ) > 135 :
+      return data[0:135] + '..)'
+    else
+      return data
 
   def mainRun( self ):
     """Main Function"""
@@ -83,7 +89,7 @@ class PlurkBot:
         print 'Restore & Post:',PostData
         while 1:
           try:
-            self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
+            self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = ResizePost( PostData ) )
           except:
             print "Plurk raise error!!,We will retry....."
             time.sleep( random.randint( 30 , 360 ) )
@@ -118,15 +124,13 @@ class PlurkBot:
       print 'Post:',PostData
       while 1:
         try:
-          self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
+          self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = ResizePost( PostData ) )
         except:
           print "Plurk raise error!!,We will retry....."
           time.sleep( random.randint( 30 , 360 ) )
         else:
           break
       time.sleep( random.randint( 60 , 324 ) )
-
-
           
 if __name__ == '__main__' :
   bot = PlurkBot()
