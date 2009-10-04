@@ -73,8 +73,8 @@ class PlurkBot:
     print 'Length:', len( data )
     if len( data ) > 130 :
       resizedata = data[0:130] + '..)'
-      print 'Resize Post:' + resizedata
-      print 'Resized Length:' + len( resizedata )
+      print 'Resize Post: ' + resizedata
+      print 'Resized Length: ' + len( resizedata )
       return resizedata 
     else:
       return data
