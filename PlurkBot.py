@@ -77,7 +77,7 @@ class PlurkBot:
     if os.path.exists( 'WaitPostBak.db' ):
       RestoreData = self.Restore_Wait_Post_From_File()
       print "Restore Data & Post to Plurk"
-      for y in len( RestoreData ):
+      for y in range( 0 , len( RestoreData ) ):
         while 1:
           if self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData ) == True:
             break
