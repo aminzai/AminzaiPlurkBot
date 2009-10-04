@@ -8,7 +8,10 @@ import plurkapi
 import sys
 import RSS_Reader
 import time
-from twisted.internet import reactor,task
+import random
+import lxml.html as lhtml
+from twisted.internet.task import LoopingCall
+from twisted.internet import reactor
 
 class PlurkBot:
   """That is a plurk bot,that can query a lot of rss resource from internet """
@@ -46,41 +49,50 @@ class PlurkBot:
 
   def BeFrineds( self ):
     """Auto Add friend ,if have anybody want be friend"""
-    if len( self.Client.getAlerts() ):
-      Client.befriend( alerts )
+    alerts = self.Client.getAlerts()
+    if not alerts == 1 :
+      self.Client.befriend( alerts )
 
   def mainRun( self ):
     """Main Function"""
     rets = self.rss.Read_RSS_Source()
+    self.WaitPost = []
     for i in range( 0 , len( rets ) ):
+      source_Title = rets[i][0] 
       for j in range ( 0 , len( rets[i][1] ) ):
-        source_Title = '[' + rets[i][0] + ']'
+        if j > 20 : #Control Max Data, Max:20
+          break
         item = rets[i][1][j]
         title = item.find('title').text.strip().encode('utf-8')
         link = self.BuildTinyURL( item.find('link').text.strip().encode('utf-8') )
-        data = source_Title +' ' + link + ' (' + title + ') '
-        print data
+        data = '[' + source_Title + '] ' + link + ' (' + title + ') '
 
-        if self.rss.Check_Last_RSS_Data( [ rets[i][0] , title ] ) :
-          print "Found:", data
+        if self.rss.Check_Last_RSS_Data( [ source_Title , title ] ) :
+          print 'Found:',data
           break
-        
-        self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = data )
-
-        time.sleep(60*j)
+        self.WaitPost.append( data )
 
         if j == 0:
-          self.rss.Save_Last_RSS_Data( [ rets[i][0] , title ] )
+          self.newestTitle = title
+          print 'j=0 Title:',title
+
+      self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
+
+    for x in range( 0 , len( self.WaitPost ) ):
+      print self.WaitPost.pop()
+      #self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = data )
+      time.sleep( random.randint(60,500) )
+
           
 if __name__ == '__main__' :
   bot = PlurkBot()
 
   #daily_run
-  daily_run = task.LoopingCall( bot.mainRun() )
-  daily_run.start( 300 )
+  daily_run = LoopingCall( bot.mainRun )
+  daily_run.start( 21600.0 )
 
   #be Friends
-  beFriends = task.LoopingCall( bot.BeFrineds() )
-  beFriends.start( 600 )
+  beFriends = LoopingCall( bot.BeFrineds )
+  beFriends.start( 3600.0 )
 
   reactor.run()

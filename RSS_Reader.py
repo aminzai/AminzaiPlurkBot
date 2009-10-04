@@ -48,26 +48,23 @@ class RSS_Reader:
       f.close()
       f = open( 'LastRSSData.db' , 'rb' )
       data = pickle.load( f )
-    except UnboundLocalError:
-      f.close()
+    except UnboundLocalError: 
       f = open( 'LastRSSData.db' , 'wb' )
       pickle.dump( {'RSS':'Start'} , f )
       f.close()
       f = open( 'LastRSSData.db' , 'rb' )
       data = pickle.load( f )
     f.close()
-    
     return data
-
 
   def Check_Last_RSS_Data( self , check_data ):
     """ That will open LastRSSData.db to check """
     check = self.Read_Last_RSS_Data()
     if check.has_key( check_data[0] ):
       if check[ check_data[0] ] == check_data[1]:
-        return False
-      else:
         return True
+      else:
+        return False
     else:
         return False
 
