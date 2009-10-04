@@ -72,7 +72,7 @@ class PlurkBot:
   def ResizePost( self , data ):
     if len( data ) > 135 :
       return data[0:135] + '..)'
-    else
+    else:
       return data
 
   def mainRun( self ):
@@ -89,7 +89,7 @@ class PlurkBot:
         print 'Restore & Post:',PostData
         while 1:
           try:
-            self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = ResizePost( PostData ) )
+            self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
           except:
             print "Plurk raise error!!,We will retry....."
             time.sleep( random.randint( 30 , 360 ) )
@@ -124,7 +124,7 @@ class PlurkBot:
       print 'Post:',PostData
       while 1:
         try:
-          self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = ResizePost( PostData ) )
+          self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
         except:
           print "Plurk raise error!!,We will retry....."
           time.sleep( random.randint( 30 , 360 ) )
