@@ -9,6 +9,7 @@ import sys
 import os
 import RSS_Reader
 import time
+import pickle
 import random
 try:
   import lxml.html as lhtml
