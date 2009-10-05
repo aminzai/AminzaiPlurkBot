@@ -106,9 +106,12 @@ class PlurkBot:
             RestoreData = tmp
             PostData = RestoreData.pop()
             self.Backup_Wait_Post_To_File( RestoreData )
+            DelayTime = random.randint( 60 , 66 )
+            print 'Delay Time(Jump 10~11min):', DelayTime
+            time.sleep( DelayTime )
           else:
             if ( y % 3 ) == 2:
-              DelayTime = random.randint( 600 , 660 )
+              DelayTime = random.randint( 60 , 66 )
               print 'Delay Time(Jump 10~11min):', DelayTime
               time.sleep( DelayTime )
             else:
@@ -126,7 +129,7 @@ class PlurkBot:
         item = rets[i][1][j]
         title = item.find('title').text.strip().encode('utf-8')
         link = self.BuildTinyURL( item.find('link').text.strip().encode('utf-8') )
-        data = str( random.random() )[ random.randint( 6 , 9 ) : -1 ] + '[' + source_Title + '] ' + link + ' (' + title + ') '
+        data = str( random.random() )[ 2 : random.randint( 6 , 14 ) ] + '[' + source_Title + '] ' + link + ' (' + title + ') '
         #data = title 
 
         if j == 0:
@@ -154,6 +157,12 @@ class PlurkBot:
           DelayTime = random.randint( 30 , 60 )
           print 'Delay Time:', DelayTime
           time.sleep( DelayTime )
+          tmp = []
+          tmp.append( PostData )
+          tmp.extend( self.WaitPost )
+          self.WaitPost = tmp
+          PostData = self.WaitPost.pop()
+          self.Backup_Wait_Post_To_File( self.WaitPost )
         else:
           break
 
