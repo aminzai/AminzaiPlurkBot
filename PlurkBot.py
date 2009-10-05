@@ -90,7 +90,7 @@ class PlurkBot:
     if os.path.exists( 'WaitPostBak.db' ):
       RestoreData = self.Restore_Wait_Post_From_File()
       print "Restore Data & Post to Plurk"
-      DelayTime = random.randint( 60 , 66 )
+      DelayTime = random.randint( 60 , 166 )
       print 'Delay Time(Jump 10~11min):', DelayTime
       time.sleep( DelayTime )
       for y in range( 0 , len( RestoreData ) ):
@@ -109,11 +109,11 @@ class PlurkBot:
             RestoreData = tmp
             PostData = RestoreData.pop()
             self.Backup_Wait_Post_To_File( RestoreData )
-            DelayTime = random.randint( 3600 , 3660 )
+            DelayTime = random.randint( 50 , 160 )
             print 'Delay Time(Jump 10~11min):', DelayTime
             time.sleep( DelayTime )
           else:
-            DelayTime = random.randint( 3600 , 3700 )
+            DelayTime = random.randint( 60 , 170 )
             print 'Delay Time:', DelayTime
             time.sleep( DelayTime )
             break
@@ -150,7 +150,7 @@ class PlurkBot:
           self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
         except:
           print "Plurk raise error!!,We will retry....."
-          DelayTime = random.randint( 3600 , 3700 )
+          DelayTime = random.randint( 60 , 170 )
           print 'Delay Time:', DelayTime
           time.sleep( DelayTime )
           tmp = []
@@ -161,7 +161,7 @@ class PlurkBot:
           self.Backup_Wait_Post_To_File( self.WaitPost )
         else:
           break
-      DelayTime = random.randint( 3600 , 3700 )
+      DelayTime = random.randint( 60 , 170 )
       print 'Delay Time:', DelayTime
       time.sleep( DelayTime )
           
