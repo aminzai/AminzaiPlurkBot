@@ -74,13 +74,13 @@ class PlurkBot:
     rand_style = random.randint( 0 , 4 )
     if rand_style == 0 :
        return link + ' (' + self.ResizePost( title ) + ') '
-    elif rand_syle == 1 :
+    elif rand_style == 1 :
        return self.ResizePost( title , 105 ) + link + ' (Link)'
-    elif rand_syle == 2 :
+    elif rand_style == 2 :
        return self.ResizePost( title , 105 ) + link + ' (連結)'
-    elif rand_syle == 3 :
+    elif rand_style == 3 :
        return link + ' (連結)' + self.ResizePost( title , 105 )
-    elif rand_syle == 4 :
+    elif rand_style == 4 :
        return link + ' (Link)' + self.ResizePost( title , 105 )
 
   def mainRun( self ):
