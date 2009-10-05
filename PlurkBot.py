@@ -87,7 +87,7 @@ class PlurkBot:
     if os.path.exists( 'WaitPostBak.db' ):
       RestoreData = self.Restore_Wait_Post_From_File()
       print "Restore Data & Post to Plurk"
-      DelayTime = random.randint( 600 , 660 )
+      DelayTime = random.randint( 60 , 66 )
       print 'Delay Time(Jump 10~11min):', DelayTime
       time.sleep( DelayTime )
       for y in range( 0 , len( RestoreData ) ):
@@ -106,15 +106,15 @@ class PlurkBot:
             RestoreData = tmp
             PostData = RestoreData.pop()
             self.Backup_Wait_Post_To_File( RestoreData )
-            DelayTime = random.randint( 60 , 600 )
+            DelayTime = random.randint( 60 , 66 )
             print 'Delay Time(Jump 10~11min):', DelayTime
             time.sleep( DelayTime )
           else:
             if ( y % 4 ) == 3:
               print 'Delay Time( 30min ):'
-              time.sleep( 1800 )
+              time.sleep( 160 )
             else:
-              DelayTime = random.randint( 60 , 600 )
+              DelayTime = random.randint( 60 , 180 )
               print 'Delay Time:', DelayTime
               time.sleep( DelayTime )
             break
@@ -128,7 +128,8 @@ class PlurkBot:
         item = rets[i][1][j]
         title = item.find('title').text.strip().encode('utf-8')
         link = self.BuildTinyURL( item.find('link').text.strip().encode('utf-8') )
-        data = str( random.random() )[ 2 : random.randint( 6 , 14 ) ] + '[' + source_Title + '] ' + link + ' (' + title + ') '
+        #data = str( random.random() )[ 2 : random.randint( 6 , 14 ) ] + '[' + source_Title + '] ' + link + ' (' + title + ') '
+        data =  link + ' (' + title + ') '
         #data = title 
 
         if j == 0:
@@ -153,7 +154,7 @@ class PlurkBot:
           self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
         except:
           print "Plurk raise error!!,We will retry....."
-          DelayTime = random.randint( 30 , 600 )
+          DelayTime = random.randint( 60 , 180 )
           print 'Delay Time:', DelayTime
           time.sleep( DelayTime )
           tmp = []
@@ -167,8 +168,8 @@ class PlurkBot:
 
       if ( x % 4 ) == 3 :
         print 'Delay Time(30min)'
-        time.sleep( 1800 )
-      DelayTime = random.randint( 60 , 600 )
+        time.sleep( 360 )
+      DelayTime = random.randint( 120 , 180 )
       print 'Delay Time:', DelayTime
       time.sleep( DelayTime )
           
