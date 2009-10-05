@@ -65,7 +65,7 @@ class PlurkBot:
     if len( data ) > max :
       return data[0:max-5] + '...'
     elif len( data ) < min :
-      return data  + str( random.random() )[ random.randint( 2 , 5 ) : -1  ]
+      return data  + ' ' +str( random.random() )[ random.randint( 2 , 5 ) : -1  ]
     else:
       return data
 
