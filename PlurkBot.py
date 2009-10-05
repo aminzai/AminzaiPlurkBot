@@ -69,18 +69,18 @@ class PlurkBot:
 
   def PostDataGen( self , item ):
     title = item.find('title').text.strip().encode('utf-8')
-    link = self.BuildTinyURL( item.find('link').text.strip().encode('utf-8') )
+    link = self.sUrl.Random_Short_Url_Gen( item.find('link').text.strip().encode('utf-8') )
     rand_style = random.randint( 0 , 4 )
     if rand_style == 0 :
        return link + ' (' + ResizePost( title ) + ') '
     elif rand_syle == 1 :
-       return title + sUrl.Random_Short_Url_Gen( link ) + ' (Link)'
+       return title + link + ' (Link)'
     elif rand_syle == 2 :
-       return title + sUrl.Random_Short_Url_Gen( link ) + ' (連結)'
+       return title + link + ' (連結)'
     elif rand_syle == 3 :
-       return sUrl.Random_Short_Url_Gen( link ) + ' (連結)' + title
+       return link + ' (連結)' + title
     elif rand_syle == 4 :
-       return sUrl.Random_Short_Url_Gen( link ) + ' (Link)' + title
+       return link + ' (Link)' + title
 
   def mainRun( self ):
     """Main Function"""
