@@ -103,7 +103,7 @@ class PlurkBot:
         while 1:
           try:
             print 'Restore & Post:',PostData
-            self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
+            self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
           except:
             print "Plurk raise error!!,We will retry....."
             tmp = []
@@ -150,7 +150,7 @@ class PlurkBot:
       while 1:
         try:
           print 'Post:',PostData
-          self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
+          self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
         except:
           print "Plurk raise error!!,We will retry....."
           DelayTime = random.randint( 60 , 170 )
