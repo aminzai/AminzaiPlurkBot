@@ -63,7 +63,7 @@ class PlurkBot:
   
   def ResizePost( self , data , max = 110 ):
     if len( data ) > max :
-      return data[0:max]
+      return data[0:max-5] + '...'
     else:
       return data
 
@@ -73,15 +73,15 @@ class PlurkBot:
     link = su.Random_Short_Url_Gen( item.find('link').text.strip().encode('utf-8') )
     rand_style = random.randint( 0 , 4 )
     if rand_style == 0 :
-       return link + ' (' + ResizePost( title ) + ') '
+       return link + ' (' + self.ResizePost( title ) + ') '
     elif rand_syle == 1 :
-       return title + link + ' (Link)'
+       return self.ResizePost( title , 105 ) + link + ' (Link)'
     elif rand_syle == 2 :
-       return title + link + ' (連結)'
+       return self.ResizePost( title , 105 ) + link + ' (連結)'
     elif rand_syle == 3 :
-       return link + ' (連結)' + title
+       return link + ' (連結)' + self.ResizePost( title , 105 )
     elif rand_syle == 4 :
-       return link + ' (Link)' + title
+       return link + ' (Link)' + self.ResizePost( title , 105 )
 
   def mainRun( self ):
     """Main Function"""
