@@ -64,8 +64,8 @@ class PlurkBot:
   def ResizePost( self , data , max = 110 , min = 40):
     if len( data ) > max :
       return data[0:max-5] + '...'
-    elif len( data ) < 40 :
-      return data( data ) + str( random.random() )[ random.randint( 2 , 5 ) : -1  ]
+    elif len( data ) < min :
+      return data  + str( random.random() )[ random.randint( 2 , 5 ) : -1  ]
     else:
       return data
 
@@ -75,15 +75,15 @@ class PlurkBot:
     link = su.Random_Short_Url_Gen( item.find('link').text.strip().encode('utf-8') )
     rand_style = random.randint( 0 , 4 )
     if rand_style == 0 :
-       return link + ' (' + self.ResizePost( title ) + ') '
+       return link + ' (' + self.ResizePost( title , 160 , 100) + ') '
     elif rand_style == 1 :
-       return self.ResizePost( title , 100 ) + ' ' + link + ' '
+       return self.ResizePost( title , 160 , 100 ) + ' ' + link + ' '
     elif rand_style == 2 :
-       return self.ResizePost( title , 100 ) + ' ' + link + ' (**連結**)'
+       return self.ResizePost( title , 160 , 100 ) + ' ' + link + ' (**連結**)'
     elif rand_style == 3 :
-       return link + ' (**連結**)' + self.ResizePost( title , 105 )
+       return link + ' (**連結**)' + self.ResizePost( title , 150 , 100 )
     elif rand_style == 4 :
-       return link + ' ' + self.ResizePost( title , 105 )
+       return link + ' ' + self.ResizePost( title , 160 , 100 )
 
   def mainRun( self ):
     """Main Function"""
