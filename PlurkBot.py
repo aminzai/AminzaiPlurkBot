@@ -4,19 +4,19 @@
 # Author    : Kang-Min Wang ( Aminzai )
 # Mail      : lagunawang --AT-- Gmail.com
 # Date      : Thu Oct  1 11:05:15 CST 2009
-import plurkapi
+
+# By System
 import sys
 import os
-import RSS_Reader
 import time
 import pickle
 import random
-try:
-  import lxml.html as lhtml
-except:
-  print "Warring: Can't import lxml.html, That will can't use tinyURL"
 from twisted.internet.task import LoopingCall
 from twisted.internet import reactor
+# By local
+import plurkapi
+import RSS_Reader
+from ShortUrlGen import ShortURL as sUrl
 
 class PlurkBot:
   """That is a plurk bot,that can query a lot of rss resource from internet """
@@ -55,29 +55,32 @@ class PlurkBot:
     file.close()
     return data
 
-  def BuildTinyURL( self , url ):
-    tinyapiurl = "http://tinyurl.com/api-create.php?url="
-    try:
-      tinyurl = lhtml.parse(tinyapiurl+url).xpath("//body")[0].text_content()
-    except:
-      return url
-    return tinyurl
-
   def BeFrineds( self ):
     """Auto Add friend ,if have anybody want be friend"""
     alerts = self.Client.getAlerts()
     if not alerts > 0 :
       self.Client.befriend( alerts )
   
-  def ResizePost( self , data ):
-    print 'Length:', len( data )
-    if len( data ) > 138 :
-      resizedata = data[0:128] + '..)'
-      print 'Resize Post: ' + resizedata
-      print 'Resized Length: ' + len( resizedata )
-      return resizedata 
+  def ResizePost( self , data , max = 110 ):
+    if len( data ) > max :
+      return data[0:max]
     else:
       return data
+
+  def PostDataGen( self , item ):
+    title = item.find('title').text.strip().encode('utf-8')
+    link = self.BuildTinyURL( item.find('link').text.strip().encode('utf-8') )
+    rand_style = random.randint( 0 , 4 )
+    if rand_style == 0 :
+       return link + ' (' + ResizePost( title ) + ') '
+    elif rand_syle == 1 :
+       return title + sUrl.Random_Short_Url_Gen( link ) + ' (Link)'
+    elif rand_syle == 2 :
+       return title + sUrl.Random_Short_Url_Gen( link ) + ' (連結)'
+    elif rand_syle == 3 :
+       return sUrl.Random_Short_Url_Gen( link ) + ' (連結)' + title
+    elif rand_syle == 4 :
+       return sUrl.Random_Short_Url_Gen( link ) + ' (Link)' + title
 
   def mainRun( self ):
     """Main Function"""
@@ -122,11 +125,7 @@ class PlurkBot:
         if j > 3 : #Control Max Data
           break
         item = rets[i][1][j]
-        title = item.find('title').text.strip().encode('utf-8')
-        link = self.BuildTinyURL( item.find('link').text.strip().encode('utf-8') )
-        #data = str( random.random() )[ 2 : random.randint( 6 , 14 ) ] + '[' + source_Title + '] ' + link + ' (' + title + ') '
-        data =  link + ' (' + title + ') '
-        #data = title 
+        data = self.PostDataGen( item )
 
         if j == 0:
           self.newestTitle = title
@@ -140,6 +139,7 @@ class PlurkBot:
       self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
 
     random.shuffle( self.WaitPost )
+
     for x in range( 0 , len( self.WaitPost ) ):
       random.shuffle( self.WaitPost )
       self.Backup_Wait_Post_To_File( self.WaitPost )
