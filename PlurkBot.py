@@ -111,6 +111,10 @@ class PlurkBot:
               DelayTime = random.randint( 600 , 660 )
               print 'Delay Time(Jump 10~11min):', DelayTime
               time.sleep( DelayTime )
+            else:
+              DelayTime = random.randint( 30 , 60 )
+              print 'Delay Time:', DelayTime
+              time.sleep( DelayTime )
             break
 
     #Get all data
@@ -122,11 +126,12 @@ class PlurkBot:
         item = rets[i][1][j]
         title = item.find('title').text.strip().encode('utf-8')
         link = self.BuildTinyURL( item.find('link').text.strip().encode('utf-8') )
-        data = '[' + source_Title + '] ' + link + ' (' + title + ') '
+        #data = '[' + source_Title + '] ' + link + ' (' + title + ') '
+        data = title 
 
         if j == 0:
           self.newestTitle = title
-          print 'The Newest Title:',title
+          print source_Title + 'The Newest Title:',title
 
         if self.rss.Check_Last_RSS_Data( [ source_Title , title ] ) :
           print 'Found:',data
