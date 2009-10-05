@@ -148,9 +148,9 @@ class PlurkBot:
       random.shuffle( self.WaitPost )
       self.Backup_Wait_Post_To_File( self.WaitPost )
       PostData = self.WaitPost.pop()
-      print 'Post:',PostData
       while 1:
         try:
+          print 'Post:',PostData
           self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
         except:
           print "Plurk raise error!!,We will retry....."
