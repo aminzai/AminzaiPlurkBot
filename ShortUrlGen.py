@@ -44,7 +44,7 @@ class ShortURL:
       return shorturl
     else:
       raise IOError
-  def Randomi_Short_Url_Gen( self , url ):
+  def Random_Short_Url_Gen( self , url ):
     choice = [ 'TrIm' , 'TinyUrl' , 'IsGd' ] 
     rand = random.choice( choice ) 
     try:
@@ -64,7 +64,7 @@ if __name__ == '__main__' :
    obj = ShortURL()
    while 1:
      a = raw_input("Please input url:")
-     print obj.Randomi_Short_Url_Gen( a )
+     print obj.Random_Short_Url_Gen( a )
      #print obj.TrIm_query(a)
      #print obj.TinyUrl_query(a)
      #print obj.IsGd_query(a)
