@@ -129,10 +129,10 @@ class PlurkBot:
         data = self.PostDataGen( item )
 
         if j == 0:
-          self.newestTitle = title
-          print source_Title + 'The Newest Title:',title
+          self.newestTitle = data
+          print source_Title + 'The Newest Title:',data
 
-        if self.rss.Check_Last_RSS_Data( [ source_Title , title ] ) :
+        if self.rss.Check_Last_RSS_Data( [ source_Title , data ] ) :
           print 'Found:',data
           break
         self.WaitPost.append( data )
