@@ -69,7 +69,7 @@ class PlurkBot:
 
   def PostDataGen( self , item ):
     title = item.find('title').text.strip().encode('utf-8')
-    link = self.sUrl.Random_Short_Url_Gen( item.find('link').text.strip().encode('utf-8') )
+    link = sUrl.Random_Short_Url_Gen( item.find('link').text.strip().encode('utf-8') )
     rand_style = random.randint( 0 , 4 )
     if rand_style == 0 :
        return link + ' (' + ResizePost( title ) + ') '
