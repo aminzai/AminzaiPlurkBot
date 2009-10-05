@@ -95,8 +95,8 @@ class PlurkBot:
         self.Backup_Wait_Post_To_File( RestoreData )
         PostData = RestoreData.pop()
         while 1:
-          print 'Restore & Post:',PostData
           try:
+            print 'Restore & Post:',PostData
             self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
           except:
             print "Plurk raise error!!,We will retry....."
