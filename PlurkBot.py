@@ -106,16 +106,15 @@ class PlurkBot:
             RestoreData = tmp
             PostData = RestoreData.pop()
             self.Backup_Wait_Post_To_File( RestoreData )
-            DelayTime = random.randint( 60 , 66 )
+            DelayTime = random.randint( 60 , 600 )
             print 'Delay Time(Jump 10~11min):', DelayTime
             time.sleep( DelayTime )
           else:
-            if ( y % 3 ) == 2:
-              DelayTime = random.randint( 60 , 66 )
-              print 'Delay Time(Jump 10~11min):', DelayTime
-              time.sleep( DelayTime )
+            if ( y % 4 ) == 3:
+              print 'Delay Time( 30min ):'
+              time.sleep( 1800 )
             else:
-              DelayTime = random.randint( 30 , 60 )
+              DelayTime = random.randint( 60 , 600 )
               print 'Delay Time:', DelayTime
               time.sleep( DelayTime )
             break
@@ -124,7 +123,7 @@ class PlurkBot:
     for i in range( 0 , len( rets ) ):
       source_Title = rets[i][0] 
       for j in range ( 0 , len( rets[i][1] ) ):
-        if j > 3 : #Control Max Data
+        if j > 1 : #Control Max Data
           break
         item = rets[i][1][j]
         title = item.find('title').text.strip().encode('utf-8')
@@ -154,7 +153,7 @@ class PlurkBot:
           self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = self.ResizePost( PostData ) )
         except:
           print "Plurk raise error!!,We will retry....."
-          DelayTime = random.randint( 30 , 60 )
+          DelayTime = random.randint( 30 , 600 )
           print 'Delay Time:', DelayTime
           time.sleep( DelayTime )
           tmp = []
@@ -166,11 +165,10 @@ class PlurkBot:
         else:
           break
 
-      if ( x % 3 ) == 2 :
-        DelayTime = random.randint( 60 , 66 )
-        print 'Delay Time(Jump 10~11min):', DelayTime
-        time.sleep( DelayTime )
-      DelayTime = random.randint( 30 , 60 )
+      if ( x % 4 ) == 3 :
+        print 'Delay Time(30min)'
+        time.sleep( 1800 )
+      DelayTime = random.randint( 60 , 600 )
       print 'Delay Time:', DelayTime
       time.sleep( DelayTime )
           
