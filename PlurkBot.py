@@ -107,6 +107,7 @@ class PlurkBot:
           except:
             print "Plurk raise error!!,We will retry....."
             tmp = []
+            PostData = PostData + '..')
             tmp.append( PostData )
             tmp.extend( RestoreData )
             RestoreData = tmp
@@ -157,6 +158,7 @@ class PlurkBot:
           print 'Delay Time:', DelayTime
           time.sleep( DelayTime )
           tmp = []
+          PostData = PostData + '..'
           tmp.append( PostData )
           tmp.extend( self.WaitPost )
           self.WaitPost = tmp
