@@ -107,7 +107,7 @@ class PlurkBot:
           except:
             print "Plurk raise error!!,We will retry....."
             tmp = []
-            PostData = PostData + '..')
+            PostData = PostData + '..'
             tmp.append( PostData )
             tmp.extend( RestoreData )
             RestoreData = tmp
