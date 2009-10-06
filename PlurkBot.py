@@ -45,16 +45,25 @@ class PlurkBot:
     return AccountInf 
 
   def Backup_Wait_Post_To_File( self , data ):
+    """Save a backup file to disk"""
     file = open( 'WaitPostBak.db' , 'wb' )
     pickle.dump( data , file )
     file.close()
 
   def Restore_Wait_Post_From_File( self ):
+    """Restore the backup file"""
     file = open( 'WaitPostBak.db' , 'rb' )
     data = pickle.load( file )
     file.close()
     return data
 
+  def Restore_Post( self , PostData , WaitPost ):
+    """Get the new post data & save back to file"""
+    WaitPost.append( PostData )
+    random.shuffle( WaitPost )
+    returnPostDat = WaitPost.pop()
+    self.Backup_Wait_Post_To_File( WaitPost )
+    return returnPostDat
   def BeFrineds( self ):
     """Auto Add friend ,if have anybody want be friend"""
     alerts = self.Client.getAlerts()
@@ -62,6 +71,7 @@ class PlurkBot:
       self.Client.befriend( alerts )
   
   def ResizePost( self , data , max = 110 , min = 40):
+    """Cut Post length"""
     if len( data ) > max :
       return data[0:max-5] + '...'
     elif len( data ) < min :
@@ -70,6 +80,7 @@ class PlurkBot:
       return data
 
   def PostDataGen( self , item ):
+    """Generator the post data via some post style"""
     title = item.find('title').text.strip().encode('utf-8')
     su = sUrl()
     link = su.Random_Short_Url_Gen( item.find('link').text.strip().encode('utf-8') )
