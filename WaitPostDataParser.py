@@ -36,6 +36,8 @@ while 1:
    sys.exit()
  elif DelNum == 'w':
    break
+ elif DelNum == '':
+   continue
  else:
    del data[ DelNum ]
 
