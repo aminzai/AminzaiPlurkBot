@@ -45,6 +45,6 @@ tmp = []
 for i in data.keys():
   tmp.append( data[ i ] )
 
-pickle.dump( data , file )
+pickle.dump( tmp , file )
 
 file.close()
