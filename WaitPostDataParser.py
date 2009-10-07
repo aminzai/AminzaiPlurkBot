@@ -19,9 +19,9 @@ if not os.path.exists( 'WaitPostBak.db' ):
   print 'file not find!!'
   sys.exit()
 else:
-  file  = open( 'WaitPostBak.db' , 'rb')
-  RawData = pickle.load( file )
-  file.close()
+  File  = open( 'WaitPostBak.db' , 'rb')
+  RawData = pickle.load( File )
+  File.close()
 
 
 data = {}
