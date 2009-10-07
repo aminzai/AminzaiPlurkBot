@@ -19,22 +19,36 @@ if not os.path.exists( 'WaitPostBak.db' ):
   print 'file not find!!'
   sys.exit()
 else:
-  file  = open( 'WaitPostBak.db' , 'rb')
-  RawData = pickle.load( file )
+  File  = open( 'WaitPostBak.db' , 'rb')
+  RawData = pickle.load( File )
+  File.close()
+
 
 data = {}
 
 for i in range( len( RawData ) ):
-  data[ i ] =  RawData[ i ]
+  data[ str( i ) ] =  RawData[ i ]
 
 while 1:
-        for i in data.keys():
-          print i , data[ i ]
-        DelNum = raw_input('Type num to del item, or type q to quit:')
-        if DelNum == 'q':
-          print 'Bye!'
-          sys.exit()
-        else:
-          data[ DelNum ] = ''
+ for i in data.keys():
+   print i , data[ i ]
+ DelNum = raw_input('Type num to del item, or type q to quit, type w to save & quit:')
+ if DelNum == 'q':
+   print 'Bye!'
+   sys.exit()
+ elif DelNum == 'w':
+   break
+ elif DelNum == '':
+   continue
+ else:
+   del data[ DelNum ]
 
 
+FileOut  = open( 'WaitPostBak.db' , 'wb')
+tmp = []
+for i in data.keys():
+  tmp.append( data[ i ] )
+
+pickle.dump( tmp , FileOut )
+
+FileOut.close()
