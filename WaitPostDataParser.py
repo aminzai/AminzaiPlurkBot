@@ -28,13 +28,13 @@ for i in range( len( RawData ) ):
   data[ i ] =  RawData[ i ]
 
 while 1:
-        for i in data.keys():
-          print i , data[ i ]
-        DelNum = raw_input('Type num to del item, or type q to quit:')
-        if DelNum == 'q':
-          print 'Bye!'
-          sys.exit()
-        else:
-          data[ DelNum ] = ''
+ for i in data.keys():
+   print i , data[ i ]
+ DelNum = raw_input('Type num to del item, or type q to quit:')
+ if DelNum == 'q':
+   print 'Bye!'
+   sys.exit()
+ else:
+   data[ DelNum ] = ''
 
 
