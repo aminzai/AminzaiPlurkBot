@@ -24,6 +24,6 @@ else:
 
 data = {}
 
-  for i in range( len( RawData ) ):
-    print i, RawData[ i ]
+for i in range( len( RawData ) ):
+  print i, RawData[ i ]
 
