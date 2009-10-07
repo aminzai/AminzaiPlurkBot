@@ -132,11 +132,15 @@ class PlurkBot:
             print 'Delay Time:', DelayTime
             time.sleep( DelayTime )
             break
+        if ( y % 4 ) == 3:
+          DelayTime = random.randint( 1800 , 3800 )
+          print '(Long time Delay)Delay Time:', DelayTime
+          time.sleep( DelayTime )
 
     #Get all data
     for i in range( 0 , len( rets ) ):
-      source_Title = rets[i][0] 
       for j in range ( 0 , len( rets[i][1] ) ):
+        source_Title = rets[i][0] 
         if j > 3 : #Control Max Data
           break
         item = rets[i][1][j]
@@ -145,13 +149,13 @@ class PlurkBot:
         if j == 0:
           self.newestTitle = data
           print source_Title + 'The Newest Title:',data
+          self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
 
         if self.rss.Check_Last_RSS_Data( [ source_Title , data ] ) :
           print 'Found:',data
           break
         self.WaitPost.append( data )
 
-      self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
 
     random.shuffle( self.WaitPost )
 
@@ -176,10 +180,14 @@ class PlurkBot:
           PostData = self.WaitPost.pop()
           self.Backup_Wait_Post_To_File( self.WaitPost )
         else:
+          DelayTime = random.randint( 60 , 170 )
+          print 'Delay Time:', DelayTime
+          time.sleep( DelayTime )
           break
-      DelayTime = random.randint( 60 , 170 )
-      print 'Delay Time:', DelayTime
-      time.sleep( DelayTime )
+      if ( y % 4 ) == 3:
+        DelayTime = random.randint( 1800 , 3800 )
+        print '(Long time Delay)Delay Time:', DelayTime
+        time.sleep( DelayTime )
           
 if __name__ == '__main__' :
   bot = PlurkBot()
