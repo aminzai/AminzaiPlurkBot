@@ -35,6 +35,4 @@ while 1:
    print 'Bye!'
    sys.exit()
  else:
-   data[ DelNum ] = ''
-
-
+   del data[ DelNum ]
