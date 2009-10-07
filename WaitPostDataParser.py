@@ -6,6 +6,7 @@
 #import optparse
 import pickle
 import os
+import sys
 
 #parser = optparse.OptionParser()
 #parser.add_option( '-f' , '--file' , dest='filename' , default='WaitPostBak.db' , help='Input file, Default file is "WaitPostBak.db"' )
@@ -14,12 +15,15 @@ import os
 #a = parser.parse_args(args)
 #print args
 
-if os.path.exists( 'WaitPostBak.db' ):
-  file  = open( 'WaitPostBak.db' , 'rb')
-  data = pickle.load( file )
-
-  for i in data:
-    print i
-else:
+if not os.path.exists( 'WaitPostBak.db' ):
   print 'file not find!!'
+  sys.exit()
+else:
+  file  = open( 'WaitPostBak.db' , 'rb')
+  RawData = pickle.load( file )
+
+data = {}
+
+  for i in range( len( RawData ) ):
+    print i, RawData[ i ]
 
