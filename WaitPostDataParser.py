@@ -45,7 +45,6 @@ while 1:
 
 
 FileOut  = open( 'WaitPostBak.db' , 'wb')
-RawData = pickle.load( FileOut )
 tmp = []
 for i in data.keys():
   tmp.append( data[ i ] )
