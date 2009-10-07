@@ -19,8 +19,10 @@ if not os.path.exists( 'WaitPostBak.db' ):
   print 'file not find!!'
   sys.exit()
 else:
-  file  = open( 'WaitPostBak.db' , 'rwb')
+  file  = open( 'WaitPostBak.db' , 'rb')
   RawData = pickle.load( file )
+  file.close()
+
 
 data = {}
 
@@ -41,10 +43,13 @@ while 1:
  else:
    del data[ DelNum ]
 
+
+FileOut  = open( 'WaitPostBak.db' , 'wb')
+RawData = pickle.load( FileOut )
 tmp = []
 for i in data.keys():
   tmp.append( data[ i ] )
 
-pickle.dump( tmp , file )
+pickle.dump( tmp , FileOut )
 
-file.close()
+FileOut.close()
