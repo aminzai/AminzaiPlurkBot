@@ -48,7 +48,7 @@ class RSS_Reader:
       f.close()
       f = open( 'LastRSSData.db' , 'rb' )
       data = pickle.load( f )
-    except UnboundLocalError: 
+  3  except UnboundLocalError: 
       f = open( 'LastRSSData.db' , 'wb' )
       pickle.dump( {'RSS':'Start'} , f )
       f.close()
