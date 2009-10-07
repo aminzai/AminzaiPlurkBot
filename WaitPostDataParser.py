@@ -27,3 +27,12 @@ data = {}
 for i in range( len( RawData ) ):
   print i, RawData[ i ]
 
+while 1:
+        DelNum = raw_input('Type num to del item, or type q to quit:')
+        if DelNum = 'q':
+          print 'Bye!'
+          sys.exit()
+        else:
+          data[ DelNum ] = ''
+
+
