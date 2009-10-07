@@ -25,7 +25,7 @@ else:
 data = {}
 
 for i in range( len( RawData ) ):
-  data[ i ] =  RawData[ i ]
+  data[ str( i ) ] =  RawData[ i ]
 
 while 1:
  for i in data.keys():
