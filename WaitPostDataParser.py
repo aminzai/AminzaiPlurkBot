@@ -29,7 +29,7 @@ for i in range( len( RawData ) ):
 
 while 1:
         DelNum = raw_input('Type num to del item, or type q to quit:')
-        if DelNum = 'q':
+        if DelNum == 'q':
           print 'Bye!'
           sys.exit()
         else:
