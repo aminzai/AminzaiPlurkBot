@@ -1,7 +1,10 @@
+#!/usr/bin/env python
+######
 # This program can load WaitPost.db and to read
 # Author    : Kang-Min Wang ( Aminzai )
 # Mail      : lagunawang --AT-- Gmail.com
 # Date      : Wed Oct  7 14:00:27 CST 2009
+#####
 
 #import optparse
 import pickle
