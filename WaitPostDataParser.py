@@ -30,10 +30,12 @@ for i in range( len( RawData ) ):
 while 1:
  for i in data.keys():
    print i , data[ i ]
- DelNum = raw_input('Type num to del item, or type q to quit:')
+ DelNum = raw_input('Type num to del item, or type q to quit, type w to save & quit:')
  if DelNum == 'q':
    print 'Bye!'
    sys.exit()
+ elif DelNum == 'w':
+   break
  else:
    del data[ DelNum ]
 
