@@ -25,9 +25,11 @@ else:
 data = {}
 
 for i in range( len( RawData ) ):
-  print i, RawData[ i ]
+  data[ i ] =  RawData[ i ]
 
 while 1:
+        for i in data.has_keys():
+          print i , data[ i ]
         DelNum = raw_input('Type num to del item, or type q to quit:')
         if DelNum == 'q':
           print 'Bye!'
