@@ -79,11 +79,10 @@ class PlurkBot:
     else:
       return data
 
-  def PostDataGen( self , item ):
+  def PostDataGen( self , title , link ):
     """Generator the post data via some post style"""
-    title = item.find('title').text.strip().encode('utf-8')
     su = sUrl()
-    link = su.Random_Short_Url_Gen( item.find('link').text.strip().encode('utf-8') )
+    link = su.Random_Short_Url_Gen( link )
     rand_style = random.randint( 0 , 4 )
     if rand_style == 0 :
        return link + ' (' + self.ResizePost( title , 160 , 100) + ') '
@@ -144,13 +143,15 @@ class PlurkBot:
         if j > 3 : #Control Max Data
           break
         item = rets[i][1][j]
-        data = self.PostDataGen( item )
+        title = item.find('title').text.strip().encode('utf-8')
+        link =  item.find('link').text.strip().encode('utf-8') 
+        data = self.PostDataGen( title , link )
         if self.rss.Check_Last_RSS_Data( [ source_Title , data ] ) :
-          print 'Found:',data
+          print 'Found:',title
           break
         if j == 0:
-          self.newestTitle = data
-          print source_Title + 'The Newest Title:',data
+          self.newestTitle = title
+          print source_Title + 'The Newest Title:',title
           self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
         self.WaitPost.append( data )
 
