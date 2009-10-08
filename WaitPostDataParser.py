@@ -38,7 +38,7 @@ def SaveData( data ):
   FileOut.close()
 
 def Functions( data , cmd ):
-  if data.has_key( cmd ):
+  if data.has_key( int( cmd ) ):
     del data[ int( cmd ) ]
   else:
     if cmd == 's':
@@ -77,5 +77,7 @@ for i in range( len( RawData ) ):
 
 while 1:
   PrintData( data )
+  print '='*40
   cmd = raw_input('Type num to del item, or type h to get help:')
   data = Functions( data , cmd )
+  print '='*40
