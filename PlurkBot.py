@@ -107,10 +107,12 @@ class PlurkBot:
       print 'Delay Time(Jump 10~11min):', DelayTime
       time.sleep( DelayTime )
       for y in range( 0 , len( RestoreData ) ):
+        print "Time:"+ time.ctime()
         random.shuffle( RestoreData )
         self.Backup_Wait_Post_To_File( RestoreData )
         PostData = RestoreData.pop()
         while 1:
+          print "Time:"+ time.ctime()
           try:
             print 'Restore & Post:',PostData
             self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
@@ -127,6 +129,7 @@ class PlurkBot:
             print 'Delay Time(Jump 10~11min):', DelayTime
             time.sleep( DelayTime )
           else:
+            print "Time:"+ time.ctime()
             DelayTime = random.randint( 60 , 170 )
             print 'Delay Time:', DelayTime
             time.sleep( DelayTime )
@@ -139,6 +142,7 @@ class PlurkBot:
     #Get all data
     for i in range( 0 , len( rets ) ):
       for j in range ( 0 , len( rets[i][1] ) ):
+        print "Time:"+ time.ctime()
         source_Title = rets[i][0] 
         if j > 3 : #Control Max Data
           break
@@ -163,6 +167,7 @@ class PlurkBot:
       self.Backup_Wait_Post_To_File( self.WaitPost )
       PostData = self.WaitPost.pop()
       while 1:
+        print "Time:"+ time.ctime()
         try:
           print 'Post:',PostData
           self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
@@ -185,6 +190,8 @@ class PlurkBot:
           break
       if ( y % 4 ) == 3:
         DelayTime = random.randint( 1800 , 3800 )
+        print "Time:"+ time.ctime()
+        random.shuffle( RestoreData )
         print '(Long time Delay)Delay Time:', DelayTime
         time.sleep( DelayTime )
           
