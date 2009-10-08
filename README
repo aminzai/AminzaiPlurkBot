@@ -1,1 +1,33 @@
-Now Testing
+########################
+# AminzaiPlurkBot
+########################
+This program is support multi rss resource, that can get a lot of rss data when running.
+
+########################
+# How to run this program
+########################
+
+1.Add Plurk Account to account.inf
+#vi account.inf
+username   password
+
+2.Add RSS resource
+#vi rss_resource.inf
+Title     RSS_Link
+
+Sample:
+Engadget    http://feeds.feedburner.com/engadgetchinese
+
+Note: '#' is comment
+
+3.Run AminzaiPlurkBot
+#python PlurkBot.py
+
+########################
+# Program struct
+########################
+Main Program:
+    python.py
+Waiting Post Data Backup file configure parser
+    WaitPostDataParser.py
+
