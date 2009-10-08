@@ -76,6 +76,6 @@ for i in range( len( RawData ) ):
   data[ i ] =  RawData[ i ]
 
 while 1:
- cmd = raw_input('Type num to del item, or type h to get help:')
- data = Functions( data , cmd )
-
+  PrintData( data )
+  cmd = raw_input('Type num to del item, or type h to get help:')
+  data = Functions( data , cmd )
