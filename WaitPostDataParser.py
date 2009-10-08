@@ -38,30 +38,34 @@ def SaveData( data ):
   FileOut.close()
 
 def Functions( data , cmd ):
-  if data.has_key( int( cmd ) ):
-    del data[ int( cmd ) ]
+  try:
+    if data.has_key( int( cmd ) ):
+      del data[ int( cmd ) ]
+      return data
+  except ValueError:
+    pass
+
+  if cmd == 's':
+    SaveData( data )
+  elif cmd == 'w':
+    SaveData( data )
+    sys.exit()
+  elif cmd == 'q':
+    print 'Bye!!'
+    sys.exit()
+  elif cmd == 'h':
+    print """
+    h : help 
+    s : Write backup to backup file
+    w : Write backup to backup file, and quit
+    q : quit without save
+    """
+    print 'Press any key to continue'
+    raw_input()
   else:
-    if cmd == 's':
-      SaveData( data )
-    elif cmd == 'w':
-      SaveData( data )
-      sys.exit()
-    elif cmd == 'q':
-      print 'Bye!!'
-      sys.exit()
-    elif cmd == 'h':
-      print """
-      h : help 
-      s : Write backup to backup file
-      w : Write backup to backup file, and quit
-      q : quit without save
-      """
-      print 'Press any key to continue'
-      raw_input()
-    else:
-      print 'Please type the right command, or type \"h\" to get help'
-      print 'Press any key to continue'
-      raw_input()
+    print 'Please type the right command, or type \"h\" to get help'
+    print 'Press any key to continue'
+    raw_input()
   return data
 
 def PrintData( data ):
