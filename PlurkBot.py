@@ -145,15 +145,13 @@ class PlurkBot:
           break
         item = rets[i][1][j]
         data = self.PostDataGen( item )
-
+        if self.rss.Check_Last_RSS_Data( [ source_Title , data ] ) :
+          print 'Found:',data
+          break
         if j == 0:
           self.newestTitle = data
           print source_Title + 'The Newest Title:',data
           self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
-
-        if self.rss.Check_Last_RSS_Data( [ source_Title , data ] ) :
-          print 'Found:',data
-          break
         self.WaitPost.append( data )
 
 
