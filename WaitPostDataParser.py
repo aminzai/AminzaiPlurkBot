@@ -18,40 +18,64 @@ import sys
 #a = parser.parse_args(args)
 #print args
 
-if not os.path.exists( 'WaitPostBak.db' ):
-  print 'file not find!!'
-  sys.exit()
-else:
-  File  = open( 'WaitPostBak.db' , 'rb')
-  RawData = pickle.load( File )
-  File.close()
+###### Function
+def LoadData( self ):
+  if not os.path.exists( 'WaitPostBak.db' ):
+    print 'file not find!!'
+    sys.exit()
+  else:
+    File  = open( 'WaitPostBak.db' , 'rb')
+    RawData = pickle.load( File )
+    File.close()
+    return RawData
 
+def SaveData( self , data ):
+  tmp = []
+  for i in data.keys():
+    tmp.append( data[ i ] )
+  FileOut  = open( 'WaitPostBak.db' , 'wb')
+  pickle.dump( tmp , FileOut )
+  FileOut.close()
 
+def Functions( self , data , cmd ):
+  if data.has_key( cmd ):
+    del data[ int( cmd ) ]
+  else:
+    if cmd == 's':
+      SaveData( data )
+    elif cmd == 'w':
+      SaveData( data )
+      sys.exit()
+    elif cmd == 'q'
+      print 'Bye!!'
+      sys.exit()
+    elif cmd == 'h'
+      print """
+      h : help 
+      s : Write backup to backup file
+      w : Write backup to backup file, and quit
+      q : quit without save
+      """
+      print 'Press any key to continue'
+      raw_input()
+    else:
+      print 'Please type the right command, or type \"h\" to get help'
+      print 'Press any key to continue'
+      raw_input()
+  return data
+
+def PrintData( self , data ):
+  for i in data.keys():
+    print i , data[ i ]
+
+#####  Main Run
+RawData = LoadData()
 data = {}
 
 for i in range( len( RawData ) ):
-  data[ str( i ) ] =  RawData[ i ]
+  data[ i ] =  RawData[ i ]
 
 while 1:
- for i in data.keys():
-   print i , data[ i ]
- DelNum = raw_input('Type num to del item, or type q to quit, type w to save & quit:')
- if DelNum == 'q':
-   print 'Bye!'
-   sys.exit()
- elif DelNum == 'w':
-   break
- elif DelNum == '':
-   continue
- else:
-   del data[ DelNum ]
+ cmd = raw_input('Type num to del item, or type h to get help:')
+ data = Functions( data , cmd )
 
-
-FileOut  = open( 'WaitPostBak.db' , 'wb')
-tmp = []
-for i in data.keys():
-  tmp.append( data[ i ] )
-
-pickle.dump( tmp , FileOut )
-
-FileOut.close()
