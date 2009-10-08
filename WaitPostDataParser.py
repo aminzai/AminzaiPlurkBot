@@ -19,7 +19,7 @@ import sys
 #print args
 
 ###### Function
-def LoadData( self ):
+def LoadData():
   if not os.path.exists( 'WaitPostBak.db' ):
     print 'file not find!!'
     sys.exit()
@@ -29,7 +29,7 @@ def LoadData( self ):
     File.close()
     return RawData
 
-def SaveData( self , data ):
+def SaveData( data ):
   tmp = []
   for i in data.keys():
     tmp.append( data[ i ] )
@@ -37,7 +37,7 @@ def SaveData( self , data ):
   pickle.dump( tmp , FileOut )
   FileOut.close()
 
-def Functions( self , data , cmd ):
+def Functions( data , cmd ):
   if data.has_key( cmd ):
     del data[ int( cmd ) ]
   else:
@@ -46,10 +46,10 @@ def Functions( self , data , cmd ):
     elif cmd == 'w':
       SaveData( data )
       sys.exit()
-    elif cmd == 'q'
+    elif cmd == 'q':
       print 'Bye!!'
       sys.exit()
-    elif cmd == 'h'
+    elif cmd == 'h':
       print """
       h : help 
       s : Write backup to backup file
@@ -64,7 +64,7 @@ def Functions( self , data , cmd ):
       raw_input()
   return data
 
-def PrintData( self , data ):
+def PrintData( data ):
   for i in data.keys():
     print i , data[ i ]
 
