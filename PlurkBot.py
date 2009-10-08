@@ -146,7 +146,7 @@ class PlurkBot:
         title = item.find('title').text.strip().encode('utf-8')
         link =  item.find('link').text.strip().encode('utf-8') 
         data = self.PostDataGen( title , link )
-        if self.rss.Check_Last_RSS_Data( [ source_Title , data ] ) :
+        if self.rss.Check_Last_RSS_Data( [ source_Title , title ] ) :
           print 'Found:',title
           break
         if j == 0:
