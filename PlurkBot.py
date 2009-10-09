@@ -184,7 +184,7 @@ class PlurkBot:
           print 'Delay Time:', DelayTime
           time.sleep( DelayTime )
           break
-      if ( y % 4 ) == 3:
+      if ( x % 4 ) == 3:
         DelayTime = random.randint( 1800 , 3800 )
         print '(Long time Delay)Delay Time:', DelayTime
         time.sleep( DelayTime )
