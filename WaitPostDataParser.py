@@ -19,7 +19,7 @@ import sys
 #print args
 
 ###### Function
-def LoadData( self ):
+def LoadData():
   if not os.path.exists( 'WaitPostBak.db' ):
     print 'file not find!!'
     sys.exit()
@@ -29,7 +29,7 @@ def LoadData( self ):
     File.close()
     return RawData
 
-def SaveData( self , data ):
+def SaveData( data ):
   tmp = []
   for i in data.keys():
     tmp.append( data[ i ] )
@@ -37,34 +37,38 @@ def SaveData( self , data ):
   pickle.dump( tmp , FileOut )
   FileOut.close()
 
-def Functions( self , data , cmd ):
-  if data.has_key( cmd ):
-    del data[ int( cmd ) ]
+def Functions( data , cmd ):
+  try:
+    if data.has_key( int( cmd ) ):
+      del data[ int( cmd ) ]
+      return data
+  except ValueError:
+    pass
+
+  if cmd == 's':
+    SaveData( data )
+  elif cmd == 'w':
+    SaveData( data )
+    sys.exit()
+  elif cmd == 'q':
+    print 'Bye!!'
+    sys.exit()
+  elif cmd == 'h':
+    print """
+    h : help 
+    s : Write backup to backup file
+    w : Write backup to backup file, and quit
+    q : quit without save
+    """
+    print 'Press any key to continue'
+    raw_input()
   else:
-    if cmd == 's':
-      SaveData( data )
-    elif cmd == 'w':
-      SaveData( data )
-      sys.exit()
-    elif cmd == 'q'
-      print 'Bye!!'
-      sys.exit()
-    elif cmd == 'h'
-      print """
-      h : help 
-      s : Write backup to backup file
-      w : Write backup to backup file, and quit
-      q : quit without save
-      """
-      print 'Press any key to continue'
-      raw_input()
-    else:
-      print 'Please type the right command, or type \"h\" to get help'
-      print 'Press any key to continue'
-      raw_input()
+    print 'Please type the right command, or type \"h\" to get help'
+    print 'Press any key to continue'
+    raw_input()
   return data
 
-def PrintData( self , data ):
+def PrintData( data ):
   for i in data.keys():
     print i , data[ i ]
 
@@ -76,6 +80,8 @@ for i in range( len( RawData ) ):
   data[ i ] =  RawData[ i ]
 
 while 1:
- cmd = raw_input('Type num to del item, or type h to get help:')
- data = Functions( data , cmd )
-
+  PrintData( data )
+  print '='*40
+  cmd = raw_input('Type num to del item, or type h to get help:')
+  data = Functions( data , cmd )
+  print '='*40

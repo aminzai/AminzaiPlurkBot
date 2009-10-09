@@ -79,11 +79,10 @@ class PlurkBot:
     else:
       return data
 
-  def PostDataGen( self , item ):
+  def PostDataGen( self , title , link ):
     """Generator the post data via some post style"""
-    title = item.find('title').text.strip().encode('utf-8')
     su = sUrl()
-    link = su.Random_Short_Url_Gen( item.find('link').text.strip().encode('utf-8') )
+    link = su.Random_Short_Url_Gen( link )
     rand_style = random.randint( 0 , 4 )
     if rand_style == 0 :
        return link + ' (' + self.ResizePost( title , 160 , 100) + ') '
@@ -108,10 +107,12 @@ class PlurkBot:
       print 'Delay Time(Jump 10~11min):', DelayTime
       time.sleep( DelayTime )
       for y in range( 0 , len( RestoreData ) ):
+        print "Time:"+ time.ctime()
         random.shuffle( RestoreData )
         self.Backup_Wait_Post_To_File( RestoreData )
         PostData = RestoreData.pop()
         while 1:
+          print "Time:"+ time.ctime()
           try:
             print 'Restore & Post:',PostData
             self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
@@ -128,6 +129,7 @@ class PlurkBot:
             print 'Delay Time(Jump 10~11min):', DelayTime
             time.sleep( DelayTime )
           else:
+            print "Time:"+ time.ctime()
             DelayTime = random.randint( 60 , 170 )
             print 'Delay Time:', DelayTime
             time.sleep( DelayTime )
@@ -140,20 +142,21 @@ class PlurkBot:
     #Get all data
     for i in range( 0 , len( rets ) ):
       for j in range ( 0 , len( rets[i][1] ) ):
+        print "Time:"+ time.ctime()
         source_Title = rets[i][0] 
         if j > 3 : #Control Max Data
           break
         item = rets[i][1][j]
-        data = self.PostDataGen( item )
-
-        if j == 0:
-          self.newestTitle = data
-          print source_Title + 'The Newest Title:',data
-          self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
-
-        if self.rss.Check_Last_RSS_Data( [ source_Title , data ] ) :
-          print 'Found:',data
+        title = item.find('title').text.strip().encode('utf-8')
+        link =  item.find('link').text.strip().encode('utf-8') 
+        data = self.PostDataGen( title , link )
+        if self.rss.Check_Last_RSS_Data( [ source_Title , title ] ) :
+          print 'Found:',title
           break
+        if j == 0:
+          self.newestTitle = title
+          print source_Title + 'The Newest Title:',title
+          self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
         self.WaitPost.append( data )
 
 
@@ -164,6 +167,7 @@ class PlurkBot:
       self.Backup_Wait_Post_To_File( self.WaitPost )
       PostData = self.WaitPost.pop()
       while 1:
+        print "Time:"+ time.ctime()
         try:
           print 'Post:',PostData
           self.Client.addPlurk( lang='tr_ch', qualifier = 'says' , content = PostData )
@@ -186,6 +190,8 @@ class PlurkBot:
           break
       if ( x % 4 ) == 3:
         DelayTime = random.randint( 1800 , 3800 )
+        print "Time:"+ time.ctime()
+        random.shuffle( RestoreData )
         print '(Long time Delay)Delay Time:', DelayTime
         time.sleep( DelayTime )
           
