@@ -30,12 +30,15 @@ def LoadData():
     return RawData
 
 def SaveData( data ):
-  tmp = []
-  for i in data.keys():
-    tmp.append( data[ i ] )
-  FileOut  = open( 'WaitPostBak.db' , 'wb')
-  pickle.dump( tmp , FileOut )
-  FileOut.close()
+  if len( data ) == 0 :
+    os.system( 'rm -f WaitPostBak.db' )
+  else:
+    tmp = []
+    for i in data.keys():
+      tmp.append( data[ i ] )
+    FileOut  = open( 'WaitPostBak.db' , 'wb')
+    pickle.dump( tmp , FileOut )
+    FileOut.close()
 
 def Functions( data , cmd ):
   try:
@@ -55,7 +58,7 @@ def Functions( data , cmd ):
     sys.exit()
   elif cmd == 'h':
     print """
-    h : help 
+    h : help
     s : Write backup to backup file
     w : Write backup to backup file, and quit
     q : quit without save
