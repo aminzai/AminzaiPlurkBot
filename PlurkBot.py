@@ -69,7 +69,7 @@ class PlurkBot:
     alerts = self.Client.getAlerts()
     if not alerts > 0 :
       self.Client.befriend( alerts )
-  
+
   def ResizePost( self , data , max = 110 , min = 40):
     """Cut Post length"""
     if len( data ) > max :
