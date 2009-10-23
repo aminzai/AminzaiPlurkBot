@@ -168,7 +168,7 @@ class PlurkBot:
     #if no new post,then del WaitPostBak.db & break
     if ( len( self.WaitPost ) == 0 ):
         os.System("rm -f WaitPostBak.db")
-        break
+        return
 
     for x in range( 0 , len( self.WaitPost ) ):
       random.shuffle( self.WaitPost )
