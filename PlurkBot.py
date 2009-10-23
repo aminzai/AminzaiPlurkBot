@@ -23,7 +23,7 @@ class PlurkBot:
   def __init__( self ):
     self.Client = plurkapi.PlurkAPI()
     username , password =  self.GetPlurkAccountInf()
-    
+
     if self.Client.login( username , password ) == False:
       print "ERROR: Can't Login in to Plurk"
       sys.exit()
@@ -165,6 +165,10 @@ class PlurkBot:
 
 
     random.shuffle( self.WaitPost )
+    #if no new post,then del WaitPostBak.db & break
+    if ( len( self.WaitPost ) == 0 ):
+        os.System("rm -f WaitPostBak.db")
+        break
 
     for x in range( 0 , len( self.WaitPost ) ):
       random.shuffle( self.WaitPost )
