@@ -162,6 +162,7 @@ class PlurkBot:
           print source_Title + 'The Newest Title:',title
           self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
         self.WaitPost.append( data )
+    return
 
 
     random.shuffle( self.WaitPost )
