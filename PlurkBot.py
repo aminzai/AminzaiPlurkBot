@@ -194,6 +194,8 @@ class PlurkBot:
         random.shuffle( RestoreData )
         print '(Long time Delay)Delay Time:', DelayTime
         time.sleep( DelayTime )
+
+    return
           
 if __name__ == '__main__' :
   bot = PlurkBot()
