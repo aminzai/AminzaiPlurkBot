@@ -23,7 +23,7 @@ class PlurkBot:
   def __init__( self ):
     self.Client = plurkapi.PlurkAPI()
     username , password =  self.GetPlurkAccountInf()
-    
+
     if self.Client.login( username , password ) == False:
       print "ERROR: Can't Login in to Plurk"
       sys.exit()
@@ -69,7 +69,7 @@ class PlurkBot:
     alerts = self.Client.getAlerts()
     if not alerts > 0 :
       self.Client.befriend( alerts )
-  
+
   def ResizePost( self , data , max = 110 , min = 40):
     """Cut Post length"""
     if len( data ) > max :
@@ -84,6 +84,10 @@ class PlurkBot:
     su = sUrl()
     link = su.Random_Short_Url_Gen( link )
     rand_style = random.randint( 0 , 4 )
+    print "="*40
+    print "Time:"+ time.ctime()
+    print "Tilte:" + title
+    print "="*40
     if rand_style == 0 :
        return link + ' (' + self.ResizePost( title , 160 , 100) + ') '
     elif rand_style == 1 :
@@ -103,10 +107,11 @@ class PlurkBot:
     if os.path.exists( 'WaitPostBak.db' ):
       RestoreData = self.Restore_Wait_Post_From_File()
       print "Restore Data & Post to Plurk"
-      DelayTime = random.randint( 60 , 166 )
-      print 'Delay Time(Jump 10~11min):', DelayTime
-      time.sleep( DelayTime )
       for y in range( 0 , len( RestoreData ) ):
+        if len( RestoreData ) == 0:
+          print "That have no restore data to do!!!"
+          os.system( "rm -f WaitPostBak.db" );
+          break;
         print "Time:"+ time.ctime()
         random.shuffle( RestoreData )
         self.Backup_Wait_Post_To_File( RestoreData )
@@ -142,13 +147,12 @@ class PlurkBot:
     #Get all data
     for i in range( 0 , len( rets ) ):
       for j in range ( 0 , len( rets[i][1] ) ):
-        print "Time:"+ time.ctime()
-        source_Title = rets[i][0] 
+        source_Title = rets[i][0]
         if j > 3 : #Control Max Data
           break
         item = rets[i][1][j]
         title = item.find('title').text.strip().encode('utf-8')
-        link =  item.find('link').text.strip().encode('utf-8') 
+        link =  item.find('link').text.strip().encode('utf-8')
         data = self.PostDataGen( title , link )
         if self.rss.Check_Last_RSS_Data( [ source_Title , title ] ) :
           print 'Found:',title
@@ -161,6 +165,10 @@ class PlurkBot:
 
 
     random.shuffle( self.WaitPost )
+    #if no new post,then del WaitPostBak.db & break
+    if ( len( self.WaitPost ) == 0 ):
+        os.System("rm -f WaitPostBak.db")
+        return
 
     for x in range( 0 , len( self.WaitPost ) ):
       random.shuffle( self.WaitPost )
