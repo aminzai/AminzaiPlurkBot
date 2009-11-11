@@ -85,7 +85,7 @@ class PlurkBot:
     link = su.Random_Short_Url_Gen( link )
     rand_style = random.randint( 0 , 4 )
     print "="*40
-    print "Time:"+ time.ctime()
+    print "T\me:"+ time.ctime()
     print "Tilte:" + title
     print "="*40
     if rand_style == 0 :
@@ -124,7 +124,7 @@ class PlurkBot:
           except:
             print "Plurk raise error!!,We will retry....."
             tmp = []
-            PostData = PostData + '..'
+            #PostData = PostData + '..'
             tmp.append( PostData )
             tmp.extend( RestoreData )
             RestoreData = tmp
@@ -162,7 +162,7 @@ class PlurkBot:
           print source_Title + 'The Newest Title:',title
           self.rss.Save_Last_RSS_Data( [ source_Title , self.newestTitle ] )
         self.WaitPost.append( data )
-    return
+    #return
 
 
     random.shuffle( self.WaitPost )
