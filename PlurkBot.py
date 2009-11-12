@@ -200,7 +200,7 @@ class PlurkBot:
       if ( x % 4 ) == 3:
         DelayTime = random.randint( 1800 , 3800 )
         print "Time:"+ time.ctime()
-        random.shuffle( RestoreData )
+        #random.shuffle( self.WaitPost )
         print '(Long time Delay)Delay Time:', DelayTime
         time.sleep( DelayTime )
 
