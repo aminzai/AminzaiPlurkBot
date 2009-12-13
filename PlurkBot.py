@@ -186,7 +186,7 @@ class PlurkBot:
           print 'Delay Time:', DelayTime
           time.sleep( DelayTime )
           tmp = []
-          PostData = PostData + '..'
+          PostData = PostData
           tmp.append( PostData )
           tmp.extend( self.WaitPost )
           self.WaitPost = tmp
