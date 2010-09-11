@@ -32,7 +32,7 @@ class RssResource(db.Model):
     Recore the rss resource
     """
     name = db.StringProperty()
-    url = db.StringProperty()
+    url = db.LinkProperty()
 
 class WaitPost(db.Model):
     """
@@ -43,7 +43,7 @@ class WaitPost(db.Model):
     #res = db.ReferenceProperty(reference_class = RssResource , collection_name='resource')
     res = db.ReferenceProperty(RssResource)
     #if this post is last , that we will flag it
-    last_flag = db.BooleanProperty()
+    last_flag = db.BooleanProperty(default=False)
     #auto add update time
     update_time = db.DateTimeProperty(auto_now=True,auto_now_add=True)
     #update_time = db.DateTimeProperty(auto_new_add=True)
