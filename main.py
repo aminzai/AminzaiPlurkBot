@@ -37,9 +37,43 @@ class GetRssInf(webapp.RequestHandler):
             self.response.out.write(x['title']+"<br />")
             self.response.out.write(x['link']+"<br />")
 
+
 class GetRss(webapp.RequestHandler):
     """
     """
+    def get(self):
+        res_list = model.RssResource.all().fetch(1000)
+
+        for x in res_list:
+            #url = x.url
+            #self.response.out.write(url+"<br />")
+
+            #Get last post
+            get_post = model.WaitPost.all().filter('res = ',x).order('update_time').fetch(100)
+            #self.response.out.write( get_post[0])
+
+            data = feedparser.parse(x.url)
+            for y in data['entries']:
+                try:
+                    if y['link'] == get_post[0].link:
+                        self.response.out.write("Found")
+                        break
+                except IndexError:
+                    self.response.out.write("IndexError")
+
+                model.WaitPost(
+                    desc = y['title'],
+                    link = y['link'],
+                    res = x
+                ).put()
+                self.response.out.write("Store")
+
+                self.response.out.write(y['title']+"<br />")
+                self.response.out.write(y['link']+"<br />")
+
+
+
+
 
 class InitSystem(webapp.RequestHandler):
     """
@@ -57,7 +91,8 @@ class InitSystem(webapp.RequestHandler):
 
 def main():
     application = webapp.WSGIApplication([('/', MainHandler),
-                                         ('/gri',GetRssInf),
+                                         #('/gri',GetRssInf),
+                                         ('/gs',GetRss),
                                          ('/init',InitSystem)],
                                          debug=True)
     util.run_wsgi_app(application)
