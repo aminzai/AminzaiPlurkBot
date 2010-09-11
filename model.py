@@ -39,5 +39,11 @@ class WaitPost(db.Model):
     It's a queue to record rss information
     """
     desc = db.StringProperty()
-    link = db.StringProperty()
-    res = db.ReferenceProperty(reference_class = RssResource , collection_name='resource')
+    link = db.LinkProperty()
+    #res = db.ReferenceProperty(reference_class = RssResource , collection_name='resource')
+    res = db.ReferenceProperty(RssResource)
+    #if this post is last , that we will flag it
+    last_flag = db.BooleanProperty()
+    #auto add update time
+    update_time = db.DateTimeProperty(auto_now=True,auto_now_add=True)
+    #update_time = db.DateTimeProperty(auto_new_add=True)
