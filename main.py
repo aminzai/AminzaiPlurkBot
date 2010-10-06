@@ -58,19 +58,26 @@ class GetRss(webapp.RequestHandler):
                     if y['link'] == get_post[0].link:
                         self.response.out.write("Found")
                         break
+                    else:
+                        model.WaitPost(
+                            desc = y['title'],
+                            link = y['link'],
+                            res = x
+                        ).put()
+                        self.response.out.write("Store")
+
+                        self.response.out.write(y['title']+"<br />")
+                        self.response.out.write(y['link']+"<br />")
                 except IndexError:
                     self.response.out.write("IndexError")
 
-                model.WaitPost(
-                    desc = y['title'],
-                    link = y['link'],
-                    res = x
-                ).put()
-                self.response.out.write("Store")
 
-                self.response.out.write(y['title']+"<br />")
-                self.response.out.write(y['link']+"<br />")
-
+class PostManager(webapp.RequestHandler):
+    """
+    Use this to control all wait post
+    """
+    def get(self):
+        self.response.out.write("Hello, World!")
 
 
 
@@ -93,6 +100,7 @@ def main():
     application = webapp.WSGIApplication([('/', MainHandler),
                                          #('/gri',GetRssInf),
                                          ('/gs',GetRss),
+                                         ('/pm',PostManager),
                                          ('/init',InitSystem)],
                                          debug=True)
     util.run_wsgi_app(application)
